@@ -5,9 +5,6 @@ namespace brokiem\QuickBoard;
 use pocketmine\scheduler\Task;
 use pocketmine\Player;
 use pocketmine\Server;
-use onebone\economyapi\EconomyAPI;
-use brokiem\QuickBoard\libs\libpmquery\PMQuery;
-use brokiem\QuickBoard\libs\libpmquery\PmQueryException;
 use pocketmine\utils\Config;
 
 class BoardTask extends Task {
