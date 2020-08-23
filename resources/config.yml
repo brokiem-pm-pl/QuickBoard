@@ -1,27 +1,19 @@
+# QuickBoard Config Version (DO NOT TOUCH!)
+qb-cfg-version: 1
 
-# QuickBoard refresh time (in seconds)
-refresh-time: 2 
+# QuickBoard refresh time (in seconds), use 2 - 5 for optimal QuickBoard, increase this value if your server lag
+refresh-time: 3
 
-# QuickBoard server Query | use for query player count on another server
+# QuickBoard server Query (used to request the number of players on another server)
+enable: false
 ip: kawaismp.net
 port: 19132
 
-# QuickBoard title
+# QuickBoard Title and Lines #
 quickboard-title: QuickBoard
-
-#QuickBoard lines | NOTE: Use "" for not used line
-line-1: "Hi, my name is brokiem"
-line-2: "QuickBoard plugin v1-BETA"
-line-3: "Any bugs please report to https://github.com/brokiem/QuickBoard"
-line-4: "KAWAISMP Player count $i"
-line-5: ""
-line-6: ""
-line-7: ""
-line-8: ""
-line-9: ""
-line-10: "" 
-line-11: ""
-line-12: ""
-line-13: ""
-line-14: ""
-line-15: ""
+quickboard-lines:
+- "Hi, Im using quickboard"
+- "Lightweight dan easy to use"
+- "Add more lines in config.yml"
+- " "
+- "Good luck"
