@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Scoreboards;
+namespace brokiem\QuickBoard\libs\Scoreboards;
 
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\network\mcpe\protocol\RemoveObjectivePacket;
