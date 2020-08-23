@@ -9,7 +9,7 @@ use brokiem\QuickBoard\libs\libpmquery\PMQuery;
 use brokiem\QuickBoard\libs\libpmquery\PmQueryException;
 use brokiem\QuickBoard\libs\Scoreboards\Scoreboards;
 
-class Board extends PluginTask {
+class Board extends Task {
 
     public function __construct(MainBoard $plugin)
     {
@@ -20,7 +20,7 @@ class Board extends PluginTask {
     {
         $main = $this->plugin;
       
-        foreach ($this->getPlayers() as $p) {
+        foreach ($this->plugin->getServer()->getOnlinePlayers() as $p) {
                     $api = Scoreboards::getInstance();
                     $api->new($p, "Title", "§l§bLOBBY");
                     $api->setLine($p, 1, " ");
