@@ -8,6 +8,7 @@ use pocketmine\network\mcpe\protocol\SetDisplayObjectivePacket;
 use pocketmine\network\mcpe\protocol\SetScorePacket;
 use pocketmine\network\mcpe\protocol\types\ScorePacketEntry;
 use pocketmine\Player;
+use pocketmine\Server;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 
@@ -18,15 +19,23 @@ class MainBoard extends PluginBase
 	private static $instance;
 	/** @var array $scoreboards */
 	private $scoreboards = [];
+	
+	/** Config Version */
+	const qb_cfg_version = "1";
 
 	public function onLoad(): void{
 		self::$instance = $this;
 	}
 	
 	public function onEnable()
-    {
-        $this->getScheduler()->scheduleRepeatingTask(new BoardTask($this), (int) $this->getConfig()->get("refresh-time") * 20);
-    }
+        {
+	     $version = $this->getConfig()->get("qb_cfg_version");
+             if ($version !== self::qb_cfg_version) {
+                Server::getInstance()->getLogger()->info("QuickBoard> Your config is out of date");
+             }
+             $this->getScheduler()->scheduleRepeatingTask(new BoardTask($this), (int) $this->getConfig()->get("refresh-time") * 20);
+	     $this->getServer()->getPluginManager()->registerEvents(new QBListener($this), $this);
+        }
 
 	public static function getInstance(): QuickBoard{
 		return self::$instance;
