@@ -4,7 +4,7 @@ namespace brokiem\QuickBoard;
 
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerQuitEvent;
-use Scoreboards\Scoreboards;
+use brokiem\QuickBoard\libs\Scoreboards\Scoreboards;
 
 class BoardEventListener implements Listener
 {
