@@ -27,7 +27,7 @@ class Board extends Task {
 			}catch(PmQueryException $e){
 			} 
 			//foreach ($this->plugin->arenas as $arena) {
-                    $main->new($p, "Title", "§l§bLOBBY");
+                    $main->new($p, "Title", ($this->plugin->getConfig()->get("quickboard-title")));
                     $main->setLine($p, 1, ($this->plugin->getConfig()->get("line-1")));
                     $main->setLine($p, 2, ($this->plugin->getConfig()->get("line-2")));
                     $main->setLine($p, 3, ($this->plugin->getConfig()->get("line-3")));
