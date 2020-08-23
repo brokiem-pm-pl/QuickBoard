@@ -1,2 +1,24 @@
+
 # QuickBoard refresh time (in seconds)
-refresh: 2
+refresh-time: 2 
+
+# QuickBoard server Query | use for query player count on another server
+ip: kawaismp.net
+port: 19132
+
+#QuickBoard lines | NOTE: Use "" for not used line
+line-1: "Hi, my name is brokiem"
+line-2: "QuickBoard plugin v1-BETA"
+line-3: "Any bugs please report to https://github.com/brokiem/QuickBoard"
+line-4: ""
+line-5: ""
+line-6: ""
+line-7: ""
+line-8: ""
+line-9: ""
+line-10: "" 
+line-11: ""
+line-12: ""
+line-13: ""
+line-14: ""
+line-15: ""
