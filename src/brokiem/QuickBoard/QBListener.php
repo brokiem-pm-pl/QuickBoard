@@ -8,6 +8,9 @@ use pocketmine\Server;
 use pocketmine\plugin\Listener;
 use pocketmine\utils\Config;
 
+use brokiem\QuickBoard\libs\libpmquery\PMQuery;
+use brokiem\QuickBoard\libs\libpmquery\PmQueryException;
+
 class QBListener extends PluginBase implements Listener {
     
    public function __construct(MainBoard $plugin)
@@ -17,6 +20,19 @@ class QBListener extends PluginBase implements Listener {
     
     public function Holders(Player $player)
     {
+        if($this->plugin->getConfig()->get("enable") === true){
+		try{
+		    $server = PMQuery::query($this->plugin->getConfig()->get("ip"), ($this->plugin->getConfig()->get("port")));
+	            $total = $server['Players'];
+	            Server::getInstance()->getLogger()->info("QuickBoard> There are ".$players." on the queried server right now!");
+		}catch(PmQueryException $e){
+		    $total = "§cOFFLINE";
+		    Server::getInstance()->getLogger()->info("QuickBoard> The queried server is offline right now!");
+		} 
+		}else{
+		    $total = "-"
+		}
+        
         $config = $this->getConfig()->get("quickboard-lines");
         $holder = str_replace("%name%", $player->getName(), $config);
         $holder = str_replace("%display_name%", $player->getDisplayName(), $config);
@@ -26,6 +42,8 @@ class QBListener extends PluginBase implements Listener {
         $holder = str_replace("%server_tps%", $player->getServer()->getTicksPerSecond(), $config);
         $holder = str_replace("%player_ping%", $player->getPing(), $config);
         $holder = str_replace("%server_load%", $player->getServer()->getTickUsage(), $config);
+        $holder = str_replace("%server_query%", $total, $config);
         // more holders soon :D
      }
+
 }
