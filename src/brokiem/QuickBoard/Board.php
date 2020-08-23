@@ -7,7 +7,7 @@ use pocketmine\Player;
 use onebone\economyapi\EconomyAPI;
 use brokiem\QuickBoard\libs\libpmquery\PMQuery;
 use brokiem\QuickBoard\libs\libpmquery\PmQueryException;
-use Scoreboards\Scoreboards;
+use brokiem\QuickBoard\libs\Scoreboards\Scoreboards;
 
 class Board extends PluginTask {
 
@@ -32,6 +32,6 @@ class Board extends PluginTask {
                     $api->setLine($p, 7, "      ");
                     $api->setLine($p, 8, "§3kawaismp.net");
                     $api->getObjectiveName($p);
+        }
     }
-				  }
 }
