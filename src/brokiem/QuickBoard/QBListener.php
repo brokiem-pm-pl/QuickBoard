@@ -2,9 +2,9 @@
 
 namespace brokiem\QuickBoard;
 
-use pocketmine\PluginBase;
 use pocketmine\Player;
 use pocketmine\Server;
+use pocketmine\plugin\PluginBase;
 use pocketmine\plugin\Listener;
 use pocketmine\utils\Config;
 
@@ -13,6 +13,8 @@ use brokiem\QuickBoard\libs\libpmquery\PmQueryException;
 
 class QBListener extends PluginBase implements Listener {
     
+	private $plugin;
+	
    public function __construct(MainBoard $plugin)
     {
         $this->plugin = $plugin;
