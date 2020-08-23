@@ -1,0 +1,5 @@
+name: QuickBoard
+main: brokiem\QuicBoard\MainBoard
+version: 1-BETA
+api: 3.0.0
+author: brokiem
