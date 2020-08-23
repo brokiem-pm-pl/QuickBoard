@@ -40,4 +40,5 @@ class Board extends PluginTask {
                     $api->setLine($p, 8, "§3kawaismp.net");
                     $api->getObjectiveName($p);
     }
+				  }
 }
