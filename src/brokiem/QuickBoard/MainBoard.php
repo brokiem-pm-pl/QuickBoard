@@ -25,7 +25,7 @@ class MainBoard extends PluginBase
 	
 	public function onEnable()
     {
-        $this->getScheduler()->scheduleRepeatingTask(new Board($this), (int) $this->getConfig()->get("refresh-time") * 20);
+        $this->getScheduler()->scheduleRepeatingTask(new BoardTask($this), (int) $this->getConfig()->get("refresh-time") * 20);
     }
 
 	public static function getInstance(): QuickBoard{
