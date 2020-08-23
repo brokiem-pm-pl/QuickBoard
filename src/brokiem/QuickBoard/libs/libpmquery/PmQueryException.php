@@ -1,5 +1,5 @@
 <?php
-namespace JackMD\ScoreHud\libs\libpmquery;
+namespace brokiem\QuickBoard\libs\libpmquery;
 
 class PmQueryException extends \Exception{
 }
