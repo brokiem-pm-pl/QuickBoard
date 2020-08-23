@@ -8,6 +8,7 @@ use onebone\economyapi\EconomyAPI;
 use brokiem\QuickBoard\libs\libpmquery\PMQuery;
 use brokiem\QuickBoard\libs\libpmquery\PmQueryException;
 use Scoreboards\Scoreboards;
+use pocketmine\utils\Config;
 
 class Board extends PluginTask {
 
