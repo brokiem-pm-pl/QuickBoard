@@ -6,6 +6,9 @@ refresh-time: 2
 ip: kawaismp.net
 port: 19132
 
+# QuickBoard title
+quickboard-title: QuickBoard
+
 #QuickBoard lines | NOTE: Use "" for not used line
 line-1: "Hi, my name is brokiem"
 line-2: "QuickBoard plugin v1-BETA"
