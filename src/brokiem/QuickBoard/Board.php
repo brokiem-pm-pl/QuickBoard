@@ -11,12 +11,12 @@ use brokiem\QuickBoard\libs\Scoreboards\Scoreboards;
 
 class Board extends PluginTask {
 
-    public function __construct(MainBoard $plugin) : void
+    public function __construct(MainBoard $plugin)
     {
         $this->plugin = $plugin;
     }
     
-    public function onRun(int $tick) : void
+    public function onRun(int $tick)
     {
         $main = $this->plugin;
       
