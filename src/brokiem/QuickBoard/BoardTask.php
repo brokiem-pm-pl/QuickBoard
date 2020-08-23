@@ -22,6 +22,7 @@ class BoardTask extends Task {
         $main = $this->plugin;
       
         foreach ($this->plugin->getServer()->getOnlinePlayers() as $p) {
+		if($this->plugin->getConfig()->get("enable") === true){
 		try{
 		    $server = PMQuery::query($this->plugin->getConfig()->get("ip"), ($this->plugin->getConfig()->get("port")));
 	            $total = $server['Players'];
@@ -30,6 +31,9 @@ class BoardTask extends Task {
 		    $total = "§cOFFLINE";
 		    Server::getInstance()->getLogger()->info("QuickBoard> The queried server is offline right now!");
 		} 
+		}else{
+		    $total = "-"
+		}
 		
                 $main->new($p, "Title", ($this->plugin->getConfig()->get("quickboard-title")));
                 $c = 0;
