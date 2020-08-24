@@ -51,6 +51,34 @@ class QBListener implements Listener {
 	    $holder = str_replace("%player_world%", $level->getFolderName(), $holder);
 	    $holder = str_replace("%world_player_count%", count($level->getPlayers()), $holder);
 	    $holder = str_replace("%date%", date("H:i a"), $holder);
+
+	    /** Plugin Placeholders */
+	    $economyapi = $this->plugin->getServer()->getPluginManager()->getPlugin("EconomyAPI");
+		if (!is_null($economyapi)) {
+			$holder = str_replace('%player_money%', $economyapi->myMoney($player), $holder);
+		} else {
+                        $holder = str_replace('%player_money%', "EconomyAPI Not Installed!", $holder);
+		}
+	    $pureperms = $this->plugin->getServer()->getPluginManager()->getPlugin("PurePerms");
+		if (!is_null($pureperms)) {
+			$holder = str_replace('%pp_rank%', $pureperms->getUserDataMgr()->getGroup($player)->getName(), $holder);
+			$holder = str_replace('%pp_prefix%', $pureperms->getUserDataMgr()->getNode($player, "prefix"), $holder);
+			$holder = str_replace('%pp_suffix%', $pureperms->getUserDataMgr()->getNode($player, "suffix"), $holder);
+		} else {
+                        $holder = str_replace('%pp_rank%', "PurePerms Not Installed!", $holder);
+			$holder = str_replace('%pp_prefix%', "PurePerms Not Installed!", $holder);
+			$holder = str_replace('%pp_suffix%', "PurePerms Not Installed!", $holder);
+		}
+	    $factionspro = $this->plugin->getServer()->getPluginManager()->getPlugin("FactionsPro");
+		if (!is_null($factionspro)) {
+			$fp = $factionspro->getPlayerFaction($player->getName());
+			$holder = str_replace('%fp_faction_name%', $fp, $holder);
+			$holder = str_replace('%fp_faction_power%', $factionspro->getFactionPower($fp), $holder);
+		} else {
+                        $holder = str_replace('%fp_faction_name%', "FactionsPro Not Installed!", $holder);
+			$holder = str_replace('%fp_faction_power%', "FactionsPro Not Installed!", $holder);
+		}
+	    /** More Placeholders Later */
 		return ((string) $holder);
     }
 
