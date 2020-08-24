@@ -36,7 +36,6 @@ class QBListener implements Listener {
 	    }
         $holder = str_replace("%name%", $player->getName(), $holder);
         $holder = str_replace("%display_name%", $player->getDisplayName(), $holder);
-        $holder = str_replace("%name%", $player->getName(), $holder);
         $holder = str_replace("%server_online%", count($player->getServer()->getOnlinePlayers()), $holder);
         $holder = str_replace("%max_online%", $player->getServer()->getMaxPlayers(), $holder);
         $holder = str_replace("%server_tps%", $player->getServer()->getTicksPerSecond(), $holder);
