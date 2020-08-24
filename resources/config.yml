@@ -10,10 +10,10 @@ ip: kawaismp.net
 port: 19132
 
 # QuickBoard Title and Lines #
-quickboard-title: QuickBoard
+quickboard-title: "§aQuick§eBoard"
 quickboard-lines:
-- "Hi, Im using quickboard"
-- "Lightweight dan easy to use"
-- "Add more lines in config.yml"
+- "§dHi, Im using quickboard"
+- "§aLightweight dan easy to use"
+- "§eAdd more lines in config.yml"
 - " "
-- "Good luck"
+- "§bGood luck"
