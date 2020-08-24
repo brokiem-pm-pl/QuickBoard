@@ -11,7 +11,7 @@ use pocketmine\utils\Config;
 use brokiem\QuickBoard\libs\libpmquery\PMQuery;
 use brokiem\QuickBoard\libs\libpmquery\PmQueryException;
 
-class QBListener extends PluginBase implements Listener {
+class QBListener implements Listener {
     
 	private $plugin;
 	
