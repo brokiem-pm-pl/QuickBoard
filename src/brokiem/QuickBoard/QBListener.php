@@ -6,6 +6,7 @@ use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
+use pocketmine\utils\TextFormat as TF;
 use pocketmine\utils\Config;
 
 use brokiem\QuickBoard\libs\libpmquery\PMQuery;
@@ -20,30 +21,30 @@ class QBListener implements Listener {
         $this->plugin = $plugin;
     }
     
-    public function Holders(Player $player)
+    public function Holders(Player $player, string $holder): string
     {
         if($this->plugin->getConfig()->get("enable") === true){
-		try{
-		    $server = PMQuery::query($this->plugin->getConfig()->get("ip"), ($this->plugin->getConfig()->get("port")));
+		    try{
+		        $server = PMQuery::query($this->plugin->getConfig()->get("ip"), ($this->plugin->getConfig()->get("port")));
 	            $total = $server['Players'];
-	            Server::getInstance()->getLogger()->info("QuickBoard> There are ".$players." on the queried server right now!");
-		}catch(PmQueryException $e){
-		    $total = "§cOFFLINE";
-		    Server::getInstance()->getLogger()->info("QuickBoard> The queried server is offline right now!");
-		} 
+		    }catch(PmQueryException $e){
+		        $total = "§cOFFLINE";
+		    }
+		}elseif($this->plugin->getConfig()->get("enable") === false){
+			$total = "Disabled";
 		}
         
-        $config = $this->getConfig()->get("quickboard-lines");
-        $holder = str_replace("%name%", $player->getName(), $config);
-        $holder = str_replace("%display_name%", $player->getDisplayName(), $config);
-        $holder = str_replace("%name%", $player->getName(), $config);
-        $holder = str_replace("%server_online%", count($player->getServer()->getOnlinePlayers()), $config);
-        $holder = str_replace("%max_online%", $player->getServer()->getMaxPlayers(), $config);
-        $holder = str_replace("%server_tps%", $player->getServer()->getTicksPerSecond(), $config);
-        $holder = str_replace("%player_ping%", $player->getPing(), $config);
-        $holder = str_replace("%server_load%", $player->getServer()->getTickUsage(), $config);
-        $holder = str_replace("%server_query%", $total, $config);
-        // more holders soon :D
-     }
+        //$holder = $this->plugin->getConfig()->get("quickboard-lines");
+        $holder = str_replace("{name}", $player->getName(), $holder);
+        $holder = str_replace("%display_name%", $player->getDisplayName(), $holder);
+        $holder = str_replace("%name%", $player->getName(), $holder);
+        $holder = str_replace("%server_online%", count($player->getServer()->getOnlinePlayers()), $holder);
+        $holder = str_replace("%max_online%", $player->getServer()->getMaxPlayers(), $holder);
+        $holder = str_replace("%server_tps%", $player->getServer()->getTicksPerSecond(), $holder);
+        $holder = str_replace("%player_ping%", $player->getPing(), $holder);
+        $holder = str_replace("%server_load%", $player->getServer()->getTickUsage(), $holder);
+		$holder = str_replace("%server_query%", $total, $holder);
+		return ((string) $holder);
+    }
 
 }
