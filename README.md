@@ -7,7 +7,7 @@ A lightweight and free Scoreboard plugin for your Minecraft server
 - Custom Text
 - Anti Flicker
 - Auto Updater
-- Plugin Placeholders
+- Plugin Placeholders [TODO]
 - Server Player Query
 - And Much More
 
