@@ -4,7 +4,6 @@ namespace brokiem\QuickBoard;
 
 use pocketmine\Player;
 use pocketmine\Server;
-use pocketmine\plugin\PluginBase;
 use pocketmine\plugin\Listener;
 use pocketmine\utils\Config;
 
