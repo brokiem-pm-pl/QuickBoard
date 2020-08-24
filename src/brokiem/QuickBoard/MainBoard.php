@@ -8,7 +8,9 @@ use pocketmine\network\mcpe\protocol\SetDisplayObjectivePacket;
 use pocketmine\network\mcpe\protocol\SetScorePacket;
 use pocketmine\network\mcpe\protocol\types\ScorePacketEntry;
 use pocketmine\Player;
+use pocketmine\Server;
 use pocketmine\plugin\PluginBase;
+use brokiem\QuickBoard\QBListener;
 use pocketmine\utils\Config;
 
 class MainBoard extends PluginBase 
@@ -18,15 +20,25 @@ class MainBoard extends PluginBase
 	private static $instance;
 	/** @var array $scoreboards */
 	private $scoreboards = [];
+	
+	/** Listener */
+	private $QBListener;
 
 	public function onLoad(): void{
 		self::$instance = $this;
 	}
 	
 	public function onEnable()
-    {
-        $this->getScheduler()->scheduleRepeatingTask(new Board($this), (int) $this->getConfig()->get("refresh-time") * 20);
-    }
+        {
+	     $version = $this->getConfig()->get("qb_cfg_version");
+             if ($version !== 1) {
+                Server::getInstance()->getLogger()->info("QuickBoard> Your config is outdated, please copy your old config data and delete config.yml to generate new config");
+		     $this->getServer()->getPluginManager()->disablePlugin($this);
+             }
+             $this->getScheduler()->scheduleRepeatingTask(new BoardTask($this), (int) $this->getConfig()->get("refresh-time") * 20);
+	     $this->getServer()->getPluginManager()->registerEvents(new QBListener($this), $this);
+		 $this->Holders = new QBListener($this);
+        }
 
 	public static function getInstance(): QuickBoard{
 		return self::$instance;
