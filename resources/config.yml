@@ -1,5 +1,5 @@
 # QuickBoard Config Version (DO NOT TOUCH!)
-qb-cfg-version: 1
+qb_cfg_version: 1
 
 # QuickBoard refresh time (in seconds), use 2 - 5 for optimal QuickBoard, increase this value if your server lag
 refresh-time: 3
