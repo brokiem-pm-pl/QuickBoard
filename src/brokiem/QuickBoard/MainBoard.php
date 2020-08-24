@@ -23,9 +23,6 @@ class MainBoard extends PluginBase
 	
 	/** Listener */
 	private $QBListener;
-	
-	/** Config Version */
-	const qb_cfg_version = "1";
 
 	public function onLoad(): void{
 		self::$instance = $this;
@@ -34,7 +31,7 @@ class MainBoard extends PluginBase
 	public function onEnable()
         {
 	     $version = $this->getConfig()->get("qb_cfg_version");
-             if ($version !== self::qb_cfg_version) {
+             if ($version !== 1) {
                 Server::getInstance()->getLogger()->info("QuickBoard> Your config is outdated, please copy your old config data and delete config.yml to generate new config");
 		     $this->getServer()->getPluginManager()->disablePlugin($this);
              }
