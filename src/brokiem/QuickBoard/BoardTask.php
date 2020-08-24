@@ -17,11 +17,12 @@ class BoardTask extends Task {
     public function onRun(int $tick)
     {
         $main = $this->plugin;
+		$qbline = $this->plugin->getConfig()->get("quickboard-lines");
       
         foreach ($this->plugin->getServer()->getOnlinePlayers() as $p) {
                 $main->new($p, "Title", ($this->plugin->getConfig()->get("quickboard-title")));
                 $c = 0;
-                foreach($this->plugin->getConfig()->get("quickboard-lines") as $lines ){
+                foreach ((array)$qbline as $lines){
                     $c++;
                     if($c <= 15){
                         $main->setLine($p, $c, $lines);
