@@ -5,5 +5,5 @@ branches:
 projects:
   QuickBoard:
     path: ""
-    icon: "icon.jpg"
+    icon: "icon.png"
 ...
