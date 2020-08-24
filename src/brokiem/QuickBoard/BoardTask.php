@@ -25,7 +25,7 @@ class BoardTask extends Task {
                 foreach ((array)$qbline as $lines){
                     $c++;
                     if($c <= 15){
-                        $main->setLine($p, $c, $lines);
+			$main->setLine($p, $c, $this->plugin->Holders->Holders($p, $lines));
                     }
                 }
                 $main->getObjectiveName($p);
