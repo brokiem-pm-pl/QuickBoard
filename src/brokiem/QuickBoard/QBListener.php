@@ -44,6 +44,7 @@ class QBListener implements Listener {
         $holder = str_replace("%server_load%", $player->getServer()->getTickUsage(), $holder);
 	$holder = str_replace("%server_query%", $total, $holder);
         $holder = str_replace("%item_id%", $player->getInventory()->getItemInHand()->getId(), $holder);
+	$holder = str_replace("%item_meta%", $player->getInventory()->getItemInHand()->getDamage(), $holder);
 	$holder = str_replace("%player_ip%", $player->getAddress(), $holder);
 	$holder = str_replace("%player_x%", $player->getFloorX(), $holder);
 	$holder = str_replace("%player_y%", $player->getFloorY(), $holder);
@@ -135,17 +136,17 @@ class QBListener implements Listener {
 	   /** LevelUP */
 	$levelup = $this->plugin->getServer()->getPluginManager()->getPlugin("LevelUP");
 	if (!is_null($levelup)) {
-		$holder = str_replace('%level%', $levelup->getLevel($player), $holder);
-		$holder = str_replace('%exp%', $levelup->getExp($player), $holder);
-		$holder = str_replace('%exp_count%', $levelup->getExpCount($player), $holder);
-		$holder = str_replace('%kills_count%', $levelup->getKills($player), $holder);
-		$holder = str_replace('%deaths_count%', $levelup->getDeaths($player), $holder);
+		$holder = str_replace('%lu_level%', $levelup->getLevel($player), $holder);
+		$holder = str_replace('%lu_exp%', $levelup->getExp($player), $holder);
+		$holder = str_replace('%lu_exp_count%', $levelup->getExpCount($player), $holder);
+		$holder = str_replace('%lu_kills_count%', $levelup->getKills($player), $holder);
+		$holder = str_replace('%lu_deaths_count%', $levelup->getDeaths($player), $holder);
 	} else {
-                $holder = str_replace('%level%', "LevelUP Not Installed!", $holder);
-		$holder = str_replace('%exp%', "LevelUP Not Installed!", $holder);
-		$holder = str_replace('%exp_count%', "LevelUP Not Installed!", $holder);
-		$holder = str_replace('%kills_count%', "LevelUP Not Installed!", $holder);
-		$holder = str_replace('%deaths_count%', "LevelUP Not Installed!", $holder);
+                $holder = str_replace('%lu_level%', "LevelUP Not Installed!", $holder);
+		$holder = str_replace('%lu_exp%', "LevelUP Not Installed!", $holder);
+		$holder = str_replace('%lu_exp_count%', "LevelUP Not Installed!", $holder);
+		$holder = str_replace('%lu_kills_count%', "LevelUP Not Installed!", $holder);
+		$holder = str_replace('%lu_deaths_count%', "LevelUP Not Installed!", $holder);
 	}
 	   /** PiggyFactions */
 	$pf = $this->plugin->getServer()->getPluginManager()->getPlugin("PiggyFactions");
@@ -154,7 +155,7 @@ class QBListener implements Listener {
 		$holder = str_replace('%pf_faction_rank%', $pf->getPlayerRank($player), $holder);
 	} else {
                 $holder = str_replace('%pf_faction_name%', "PiggyFactions Not Installed!", $holder);
-		$holder = str_replace('%fp_faction_rank%', "PiggyFactions Not Installed!", $holder);
+		$holder = str_replace('%pf_faction_rank%', "PiggyFactions Not Installed!", $holder);
 	}
 	return ((string) $holder);
     }
