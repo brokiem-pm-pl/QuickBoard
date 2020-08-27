@@ -114,6 +114,48 @@ class QBListener implements Listener {
                 $holder = str_replace('%red_island_rank%', "RedSkyBlock Not Installed!", $holder);
                 $holder = str_replace('%red_island_value%', "RedSkyBlock Not Installed!", $holder);
 	}
+	   /** KDR */
+	$kdr = $this->plugin->getServer()->getPluginManager()->getPlugin("KDR");
+	if (!is_null($kdr)) {
+		$holder = str_replace('%kdr%', $kdr->getProvider()->getKillToDeathRatio($player), $holder);
+		$holder = str_replace('%kills%', $kdr->getProvider()->getPlayerKillPoints($player), $holder);
+		$holder = str_replace('%deaths%', $kdr->getProvider()->getPlayerDeathPoints($player), $holder);
+	} else {
+                $holder = str_replace('%kdr%', "KDR Not Installed!", $holder);
+		$holder = str_replace('%kills%', "KDR Not Installed!", $holder);
+		$holder = str_replace('%deaths%', "KDR Not Installed!", $holder);
+	}
+	   /** CPS */
+	$cps = $this->plugin->getServer()->getPluginManager()->getPlugin("CPS");
+	if (!is_null($cps)) {
+		$holder = str_replace('%cps%', $this->cps->getClicks($player), $holder);
+	} else {
+                $holder = str_replace('%cps%', "CPS Not Installed!", $holder);
+        }
+	   /** LevelUP */
+	$levelup = $this->plugin->getServer()->getPluginManager()->getPlugin("LevelUP");
+	if (!is_null($levelup)) {
+		$holder = str_replace('%level%', $levelup->getLevel($player), $holder);
+		$holder = str_replace('%exp%', $levelup->getExp($player), $holder);
+		$holder = str_replace('%exp_count%', $levelup->getExpCount($player), $holder);
+		$holder = str_replace('%kills_count%', $levelup->getKills($player), $holder);
+		$holder = str_replace('%deaths_count%', $levelup->getDeaths($player), $holder);
+	} else {
+                $holder = str_replace('%level%', "LevelUP Not Installed!", $holder);
+		$holder = str_replace('%exp%', "LevelUP Not Installed!", $holder);
+		$holder = str_replace('%exp_count%', "LevelUP Not Installed!", $holder);
+		$holder = str_replace('%kills_count%', "LevelUP Not Installed!", $holder);
+		$holder = str_replace('%deaths_count%', "LevelUP Not Installed!", $holder);
+	}
+	   /** PiggyFactions */
+	$pf = $this->plugin->getServer()->getPluginManager()->getPlugin("PiggyFactions");
+	if (!is_null($pf)) {
+		$holder = str_replace('%pf_faction_name%', $pf->getPlayerFaction($player), $holder);
+		$holder = str_replace('%pf_faction_rank%', $pf->getPlayerRank($player), $holder);
+	} else {
+                $holder = str_replace('%pf_faction_name%', "PiggyFactions Not Installed!", $holder);
+		$holder = str_replace('%fp_faction_rank%', "PiggyFactions Not Installed!", $holder);
+	}
 	return ((string) $holder);
     }
 
