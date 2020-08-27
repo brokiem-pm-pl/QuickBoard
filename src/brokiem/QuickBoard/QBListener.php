@@ -52,13 +52,14 @@ class QBListener implements Listener {
 	$holder = str_replace("%world_player_count%", count($level->getPlayers()), $holder);
 	$holder = str_replace("%date%", date("H:i a"), $holder);
 
-	    /** Plugin Placeholders */
+	    /** EconomyAPI */
 	$economyapi = $this->plugin->getServer()->getPluginManager()->getPlugin("EconomyAPI");
 	if (!is_null($economyapi)) {
 		$holder = str_replace('%player_money%', $economyapi->myMoney($player), $holder);
 	} else {
                 $holder = str_replace('%player_money%', "EconomyAPI Not Installed!", $holder);
 	}
+	   /** PurePerms */
 	$pureperms = $this->plugin->getServer()->getPluginManager()->getPlugin("PurePerms");
 	if (!is_null($pureperms)) {
 		$holder = str_replace('%pp_rank%', $pureperms->getUserDataMgr()->getGroup($player)->getName(), $holder);
@@ -68,7 +69,8 @@ class QBListener implements Listener {
                 $holder = str_replace('%pp_rank%', "PurePerms Not Installed!", $holder);
 		$holder = str_replace('%pp_prefix%', "PurePerms Not Installed!", $holder);
 		$holder = str_replace('%pp_suffix%', "PurePerms Not Installed!", $holder);
-		}
+	}
+	   /** FactionsPro */
 	$factionspro = $this->plugin->getServer()->getPluginManager()->getPlugin("FactionsPro");
 	if (!is_null($factionspro)) {
 	$fp = $factionspro->getPlayerFaction($player->getName());
@@ -77,6 +79,40 @@ class QBListener implements Listener {
 	} else {
                 $holder = str_replace('%fp_faction_name%', "FactionsPro Not Installed!", $holder);
 		$holder = str_replace('%fp_faction_power%', "FactionsPro Not Installed!", $holder);
+	}
+	   /** SkyBlock */
+	$skyblock = $this->plugin->getServer()->getPluginManager()->getPlugin("SkyBlock");
+	if (!is_null($skyblock)) {
+		$holder = str_replace('%is_state%', $skyblock->getIsleState($player), $holder);
+		$holder = str_replace('%is_blocks%', $skyblock->getIsleBlocks($player), $holder);
+		$holder = str_replace('%is_members%', $skyblock->getIsleMembers($player), $holder);
+		$holder = str_replace('%is_size%', $skyblock->getIsleSize($player), $holder);
+		$holder = str_replace('%is_rank%', $skyblock->getIsleRank($player), $holder);
+	} else {
+                $holder = str_replace('%is_state%', "SkyBlock Not Installed!", $holder);
+		$holder = str_replace('%is_blocks%', "SkyBlock Not Installed!", $holder);
+		$holder = str_replace('%is_members%', "SkyBlock Not Installed!", $holder);
+		$holder = str_replace('%is_size%', "SkyBlock Not Installed!", $holder);
+		$holder = str_replace('%is_rank%', "SkyBlock Not Installed!", $holder);
+	}
+	   /** RedSkyBlock */
+	$redskyblock = $this->plugin->getServer()->getPluginManager()->getPlugin("RedSkyBlock");
+	if (!is_null($redskyblock)) {
+		$holder = str_replace('%red_island_name%', $redskyblock->getIslandName($player), $holder);
+		$holder = str_replace('%red_island_members%', $redskyblock->getMembers($player), $holder);
+		$holder = str_replace('%red_island_banned%', $redskyblock->getBanned($player), $holder);
+		$holder = str_replace('%red_island_locked_status%', $redskyblock->getLockedStatus($player), $holder);
+		$holder = str_replace('%red_island_size%', $redskyblock->getSize($player), $holder);
+		$holder = str_replace('%red_island_rank%', $redskyblock->calcRank(strtolower($player->getName())), $holder);
+		$holder = str_replace('%red_island_value%', $redskyblock->getValue($player), $holder);
+	} else {
+                $holder = str_replace('%red_island_name%', "RedSkyBlock Not Installed!", $holder);
+		$holder = str_replace('%red_island_members%', "RedSkyBlock Not Installed!", $holder);
+		$holder = str_replace('%red_island_banned%', "RedSkyBlock Not Installed!", $holder);
+		$holder = str_replace('%red_island_locked_status%', "RedSkyBlock Not Installed!", $holder);
+		$holder = str_replace('%red_island_size%', "RedSkyBlock Not Installed!", $holder);
+                $holder = str_replace('%red_island_rank%', "RedSkyBlock Not Installed!", $holder);
+                $holder = str_replace('%red_island_value%', "RedSkyBlock Not Installed!", $holder);
 	}
 	return ((string) $holder);
     }
