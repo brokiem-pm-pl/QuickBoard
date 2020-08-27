@@ -71,14 +71,14 @@ class QBListener implements Listener {
 		}
 	$factionspro = $this->plugin->getServer()->getPluginManager()->getPlugin("FactionsPro");
 	if (!is_null($factionspro)) {
-		$fp = $factionspro->getPlayerFaction($player->getName());
-			$holder = str_replace('%fp_faction_name%', $fp, $holder);
-			$holder = str_replace('%fp_faction_power%', $factionspro->getFactionPower($fp), $holder);
-		} else {
-                        $holder = str_replace('%fp_faction_name%', "FactionsPro Not Installed!", $holder);
-			$holder = str_replace('%fp_faction_power%', "FactionsPro Not Installed!", $holder);
-		}
-		return ((string) $holder);
+	$fp = $factionspro->getPlayerFaction($player->getName());
+		$holder = str_replace('%fp_faction_name%', $fp, $holder);
+		$holder = str_replace('%fp_faction_power%', $factionspro->getFactionPower($fp), $holder);
+	} else {
+                $holder = str_replace('%fp_faction_name%', "FactionsPro Not Installed!", $holder);
+		$holder = str_replace('%fp_faction_power%', "FactionsPro Not Installed!", $holder);
+	}
+	return ((string) $holder);
     }
 
 }
