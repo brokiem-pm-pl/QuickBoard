@@ -102,6 +102,4 @@ class MainBoard extends PluginBase
 	{
 		if(isset($this->scoreboards[($player = $event->getPlayer()->getName())])) unset($this->scoreboards[$player]);
 	}
-	
-	
 }
