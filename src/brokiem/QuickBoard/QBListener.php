@@ -11,30 +11,92 @@ use pocketmine\utils\Config;
 
 use brokiem\QuickBoard\libs\libpmquery\PMQuery;
 use brokiem\QuickBoard\libs\libpmquery\PmQueryException;
+use brokiem\QuickBoard\factions\FactionsInterface;
+use brokiem\QuickBoard\factions\PiggyFactions;
+
+use room17\SkyBlock\session\BaseSession as SkyBlockSession;
+use room17\SkyBlock\island\RankIds;
+use DaPigGuy\PiggyFactions\players\PlayerManager;
 
 class QBListener implements Listener {
     
 	private $plugin;
 	
-   public function __construct(MainBoard $plugin)
-   {
-   	$this->plugin = $plugin;
-   }
-    
-   public function Holders(Player $player, string $holder): string
-   {
-   	$level = $player->getLevel();
-        if($this->plugin->getConfig()->get("enable") === true){
-		try{
-		    $server = PMQuery::query($this->plugin->getConfig()->get("ip"), ($this->plugin->getConfig()->get("port")));
-	            $total = $server['Players'];
-  	        }catch(PmQueryException $e){
-		    $total = "§cOFFLINE";
-	        }
-	}elseif($this->plugin->getConfig()->get("enable") === false)
-	{
-		$total = "§cDisabled";
+   	public function __construct(MainBoard $plugin)
+   	{
+   		$this->plugin = $plugin;
+   	}
+	
+   	public function getIsleState(Player $player){
+		$session = $this->skyBlock->getSessionManager()->getSession($player);
+		if((is_null($session)) || (!$session->hasIsland())){
+			return "No Island";
+		}
+		$isle = $session->getIsland();
+		return $isle->isLocked() ? "Locked" : "Unlocked";
 	}
+
+   	public function getIsleBlocks(Player $player){
+		$session = $this->skyBlock->getSessionManager()->getSession($player);
+		if((is_null($session)) || (!$session->hasIsland())){
+		return "No Island";
+   	}
+   	$isle = $session->getIsland();
+		return $isle->getBlocksBuilt();
+  	}
+
+
+	public function getIsleMembers(Player $player){
+		$session = $this->skyBlock->getSessionManager()->getSession($player);
+		if((is_null($session)) || (!$session->hasIsland())){
+			return "No Island";
+		}
+
+		$isle = $session->getIsland();
+		return count($isle->getMembers());
+	}
+	
+	public function getIsleSize(Player $player){
+		$session = $this->skyBlock->getSessionManager()->getSession($player);
+
+		if((is_null($session)) || (!$session->hasIsland())){
+			return "No Island";
+		}
+		$isle = $session->getIsland();
+		return $isle->getCategory();
+	}
+
+	public function getIsleRank(Player $player){
+		$session = $this->skyBlock->getSessionManager()->getSession($player);
+		if((is_null($session)) || (!$session->hasIsland())){
+			return "No Island";
+		}
+		switch($session->getRank()){
+			case RankIds::MEMBER:
+				return "Member";
+			case RankIds::OFFICER:
+				return "Officer";
+			case RankIds::LEADER:
+				return "Leader";
+			case RankIds::FOUNDER:
+				return "Founder";
+		}
+			return "No Rank";
+	}
+    
+   	public function Holders(Player $player, string $holder): string
+   	{
+   		$level = $player->getLevel();
+       	 	if($this->plugin->getConfig()->get("enable") === true){
+			try{
+		    	$server = PMQuery::query($this->plugin->getConfig()->get("ip"), ($this->plugin->getConfig()->get("port")));
+	            	$total = $server['Players'];
+  	        	}catch(PmQueryException $e){
+		    	$total = "§cOFFLINE";
+	        	}
+		}elseif($this->plugin->getConfig()->get("enable") === false){
+			$total = "§cDisabled";
+		}
         $holder = str_replace("%name%", $player->getName(), $holder);
         $holder = str_replace("%display_name%", $player->getDisplayName(), $holder);
         $holder = str_replace("%server_online%", count($player->getServer()->getOnlinePlayers()), $holder);
@@ -84,11 +146,11 @@ class QBListener implements Listener {
 	   /** SkyBlock */
 	$skyblock = $this->plugin->getServer()->getPluginManager()->getPlugin("SkyBlock");
 	if (!is_null($skyblock)) {
-		$holder = str_replace('%is_state%', $skyblock->getIsleState($player), $holder);
-		$holder = str_replace('%is_blocks%', $skyblock->getIsleBlocks($player), $holder);
-		$holder = str_replace('%is_members%', $skyblock->getIsleMembers($player), $holder);
-		$holder = str_replace('%is_size%', $skyblock->getIsleSize($player), $holder);
-		$holder = str_replace('%is_rank%', $skyblock->getIsleRank($player), $holder);
+		$holder = str_replace('%is_state%', $this->getIsleState($player), $holder);
+		$holder = str_replace('%is_blocks%', $this->getIsleBlocks($player), $holder);
+		$holder = str_replace('%is_members%', $this->getIsleMembers($player), $holder);
+		$holder = str_replace('%is_size%', $this->getIsleSize($player), $holder);
+		$holder = str_replace('%is_rank%', $this->getIsleRank($player), $holder);
 	} else {
                 $holder = str_replace('%is_state%', "SkyBlock Not Installed!", $holder);
 		$holder = str_replace('%is_blocks%', "SkyBlock Not Installed!", $holder);
@@ -150,9 +212,10 @@ class QBListener implements Listener {
 	}
 	   /** PiggyFactions */
 	$pf = $this->plugin->getServer()->getPluginManager()->getPlugin("PiggyFactions");
+	$this->factionsAPI = new PiggyFactions();
 	if (!is_null($pf)) {
-		$holder = str_replace('%pf_faction_name%', $pf->getPlayerFaction($player), $holder);
-		$holder = str_replace('%pf_faction_rank%', $pf->getPlayerRank($player), $holder);
+		$holder = str_replace('%pf_faction_name%', $this->factionsAPI->getPlayerFaction($player), $holder);
+		$holder = str_replace('%pf_faction_rank%', $this->factionsAPI->($player), $holder);
 	} else {
                 $holder = str_replace('%pf_faction_name%', "PiggyFactions Not Installed!", $holder);
 		$holder = str_replace('%pf_faction_rank%', "PiggyFactions Not Installed!", $holder);
