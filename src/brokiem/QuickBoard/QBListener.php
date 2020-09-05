@@ -215,7 +215,7 @@ class QBListener implements Listener {
 	$this->factionsAPI = new PiggyFactions();
 	if (!is_null($pf)) {
 		$holder = str_replace('%pf_faction_name%', $this->factionsAPI->getPlayerFaction($player), $holder);
-		$holder = str_replace('%pf_faction_rank%', $this->factionsAPI->($player), $holder);
+		$holder = str_replace('%pf_faction_rank%', $this->factionsAPI->getPlayerRank($player), $holder);
 	} else {
                 $holder = str_replace('%pf_faction_name%', "PiggyFactions Not Installed!", $holder);
 		$holder = str_replace('%pf_faction_rank%', "PiggyFactions Not Installed!", $holder);
