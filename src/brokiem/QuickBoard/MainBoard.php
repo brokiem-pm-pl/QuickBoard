@@ -24,27 +24,30 @@ class MainBoard extends PluginBase
 	/** Listener */
 	private $QBListener;
 
-	public function onLoad(): void{
+	public function onLoad(): void
+	{
 		self::$instance = $this;
 	}
 	
 	public function onEnable()
         {
-	     $version = $this->getConfig()->get("qb_cfg_version");
-             if ($version !== 1) {
+		$version = $this->getConfig()->get("qb_cfg_version");
+        	if ($version !== 1) {
                 Server::getInstance()->getLogger()->info("QuickBoard> Your config is outdated, please copy your old config data and delete config.yml to generate new config");
-		     $this->getServer()->getPluginManager()->disablePlugin($this);
-             }
-             $this->getScheduler()->scheduleRepeatingTask(new BoardTask($this), (int) $this->getConfig()->get("refresh-time") * 20);
-	     $this->getServer()->getPluginManager()->registerEvents(new QBListener($this), $this);
-		 $this->Holders = new QBListener($this);
+		$this->getServer()->getPluginManager()->disablePlugin($this);
+		}
+                $this->getScheduler()->scheduleRepeatingTask(new BoardTask($this), (int) $this->getConfig()->get("refresh-time") * 20);
+	        $this->getServer()->getPluginManager()->registerEvents(new QBListener($this), $this);
+	        $this->Holders = new QBListener($this);
         }
 
-	public static function getInstance(): QuickBoard{
+	public static function getInstance(): QuickBoard
+	{
 		return self::$instance;
 	}
 
-	public function new(Player $player, string $objectiveName, string $displayName): void{
+	public function new(Player $player, string $objectiveName, string $displayName): void
+	{
 		if(isset($this->scoreboards[$player->getName()])){
 			$this->remove($player);
 		}
@@ -58,7 +61,8 @@ class MainBoard extends PluginBase
 		$this->scoreboards[$player->getName()] = $objectiveName;
 	}
 
-	public function remove(Player $player): void{
+	public function remove(Player $player): void
+	{
 		$objectiveName = $this->getObjectiveName($player);
 		$pk = new RemoveObjectivePacket();
 		$pk->objectiveName = $objectiveName;
@@ -66,7 +70,8 @@ class MainBoard extends PluginBase
 		unset($this->scoreboards[$player->getName()]);
 	}
 
-	public function setLine(Player $player, int $score, string $message): void{
+	public function setLine(Player $player, int $score, string $message): void
+	{
 		if(!isset($this->scoreboards[$player->getName()])){
 			$this->getLogger()->error("Cannot set a score to a player with no scoreboard");
 			return;
@@ -88,13 +93,13 @@ class MainBoard extends PluginBase
 		$player->sendDataPacket($pk);
 	}
 
-	public function getObjectiveName(Player $player): ?string{
+	public function getObjectiveName(Player $player): ?string
+	{
 		return isset($this->scoreboards[$player->getName()]) ? $this->scoreboards[$player->getName()] : null;
 	}
 
-	public function onQuit(PlayerQuitEvent $event): void{
+	public function onQuit(PlayerQuitEvent $event): void
+	{
 		if(isset($this->scoreboards[($player = $event->getPlayer()->getName())])) unset($this->scoreboards[$player]);
 	}
-	
-	
 }
